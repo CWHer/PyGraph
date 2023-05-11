@@ -6,6 +6,8 @@
 #include <queue>
 #include <limits>
 
+#include "omp.h"
+
 class Graph
 {
 protected:
@@ -75,6 +77,7 @@ public:
                 dist[arrIdx(i, e.to)] = std::min(dist[arrIdx(i, e.to)], (i64)e.weight);
         }
         for (i32 k = 0; k < num_nodes; k++)
+#pragma omp parallel for schedule(dynamic) num_threads(omp_get_max_threads())
             for (i32 i = 0; i < num_nodes; i++)
                 for (i32 j = 0; j < num_nodes; j++)
                     if (dist[arrIdx(i, k)] < std::numeric_limits<i64>::max() &&

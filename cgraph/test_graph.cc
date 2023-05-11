@@ -31,7 +31,7 @@ TEST(Graph, Basic)
 
 TEST(Graph, Ops)
 {
-    int num_nodes = 200, num_edges = 20000;
+    int num_nodes = 3000, num_edges = 50000;
 
     std::mt19937 rng(0);
     std::uniform_int_distribution<int> dist(0, num_nodes - 1);

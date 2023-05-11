@@ -7,8 +7,8 @@ from graph_lib import Graph as C_Graph
 
 class TestGraph(unittest.TestCase):
     def testOps(self):
-        num_nodes = 400
-        num_edges = 5000
+        num_nodes = 3000
+        num_edges = 50000
 
         g = C_Graph()
         g.initGraph(num_nodes)
