@@ -13,3 +13,25 @@ cc_test(
         "@com_google_googletest//:gtest_main",
     ],
 )
+
+pybind_extension(
+    name = "graph_lib",
+    srcs = ["graph_bind.cc"],
+    deps = [
+        ":graph",
+    ],
+)
+
+py_library(
+    name = "graph_lib_so",
+    data = [":graph_lib.so"],
+)
+
+py_test(
+    name = "test_py_graph",
+    srcs = ["test_graph.py"],
+    main = "test_graph.py",
+    deps = [
+        ":graph_lib_so",
+    ],
+)
