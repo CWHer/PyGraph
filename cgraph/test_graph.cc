@@ -1,8 +1,9 @@
-#include "cgraph/graph.hpp"
-
-#include <gtest/gtest.h>
 #include <random>
 #include <iostream>
+
+#include <gtest/gtest.h>
+
+#include "cgraph/graph.hpp"
 
 TEST(Graph, Basic)
 {
@@ -52,7 +53,7 @@ TEST(Graph, Ops)
     // for (int i = 0; i < num_nodes; ++i)
     // {
     //     for (int j = 0; j < num_nodes; ++j)
-    //         std::cerr << dist_all[i][j] << " ";
+    //         std::cerr << dist_all[i * num_nodes + j] << " ";
     //     std::cerr << std::endl;
     // }
     int num_tests = 50;
@@ -60,12 +61,14 @@ TEST(Graph, Ops)
     {
         auto src = dist(rng);
         auto dist_src = g.getShortestPathCond(src);
-        EXPECT_EQ(dist_all[src], dist_src);
+        for (int k = 0; k < num_nodes; ++k)
+            EXPECT_EQ(dist_all[src * num_nodes + k], dist_src[k]);
     }
     for (int i = 0; i < num_tests; ++i)
     {
         auto src = dist(rng);
         auto dist_src = g.getShortestPath(src);
-        EXPECT_EQ(dist_all[src], dist_src);
+        for (int k = 0; k < num_nodes; ++k)
+            EXPECT_EQ(dist_all[src * num_nodes + k], dist_src[k]);
     }
 }

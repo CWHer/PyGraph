@@ -8,7 +8,7 @@
 
 class Graph
 {
-private:
+protected:
     using i32 = int;
     using u32 = unsigned int;
     using i64 = long long;
@@ -60,24 +60,28 @@ public:
     }
 
     // Graph Ops
-    std::vector<std::vector<i64>> getAllShortestPath()
+    std::vector<i64> getAllShortestPath()
     {
         // Use Floyd Algorithm
-        std::vector<std::vector<i64>> dist(
-            num_nodes, std::vector<i64>(num_nodes, std::numeric_limits<i64>::max()));
+        std::vector<i64> dist(
+            num_nodes * num_nodes, std::numeric_limits<i64>::max());
+        // clang-format off
+        auto arrIdx = [&](i32 i, i32 j){ return i * num_nodes + j; };
+        // clang-format on
         for (i32 i = 0; i < num_nodes; i++)
         {
-            dist[i][i] = 0;
+            dist[arrIdx(i, i)] = 0;
             for (const auto &e : edges_per_node[i])
-                dist[i][e.to] = std::min(dist[i][e.to], (i64)e.weight);
+                dist[arrIdx(i, e.to)] = std::min(dist[arrIdx(i, e.to)], (i64)e.weight);
         }
         for (i32 k = 0; k < num_nodes; k++)
             for (i32 i = 0; i < num_nodes; i++)
                 for (i32 j = 0; j < num_nodes; j++)
-                    if (dist[i][k] < std::numeric_limits<i64>::max() &&
-                        dist[k][j] < std::numeric_limits<i64>::max())
+                    if (dist[arrIdx(i, k)] < std::numeric_limits<i64>::max() &&
+                        dist[arrIdx(k, j)] < std::numeric_limits<i64>::max())
                     {
-                        dist[i][j] = std::min(dist[i][j], dist[i][k] + dist[k][j]);
+                        dist[arrIdx(i, j)] = std::min(dist[arrIdx(i, j)],
+                                                      dist[arrIdx(i, k)] + dist[arrIdx(k, j)]);
                     }
 
         return dist;
