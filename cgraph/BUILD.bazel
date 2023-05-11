@@ -1,0 +1,15 @@
+load("@pybind11_bazel//:build_defs.bzl", "pybind_extension")
+
+cc_library(
+    name = "graph",
+    hdrs = ["graph.hpp"],
+)
+
+cc_test(
+    name = "test_graph",
+    srcs = ["test_graph.cc"],
+    deps = [
+        ":graph",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
