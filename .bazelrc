@@ -1,0 +1,3 @@
+build:debug --compilation_mode=dbg -s
+build:test --copt=-g0 --copt=-O3 --copt=-msse --copt=-msse2 --copt=-mmmx
+build:release --copt=-g0 --copt=-O3 --copt=-DNDEBUG --copt=-msse --copt=-msse2 --copt=-mmmx
