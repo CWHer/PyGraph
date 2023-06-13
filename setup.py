@@ -8,9 +8,13 @@ if __name__ == "__main__":
         author="cwher",
         author_email="cwher@outlook.com",
         description="A high-performance graph library",
-        license="GPLv3",
-        platforms="Linux",
+        classifiers=[
+            "Programming Language :: Python :: 3",
+            "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+            "Operating System :: POSIX :: Linux",
+        ],
         packages=["cgraph"],
         package_data={"cgraph": ["*.so"]},
+        has_ext_modules=lambda: True,
         install_requires=["numpy"],
     )
