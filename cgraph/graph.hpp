@@ -5,6 +5,7 @@
 #include <cassert>
 #include <queue>
 #include <limits>
+#include <iostream>
 
 #include "omp.h"
 
@@ -64,6 +65,13 @@ public:
     // Graph Ops
     std::vector<i64> getAllShortestPath()
     {
+#ifdef _OPENMP
+        std::cout << "[INFO]: OMP enabled, "
+                  << "OMP_NUM_THREADS=" << std::getenv("OMP_NUM_THREADS")
+                  << std::endl;
+#else
+        std::cout << "[WARN]: OMP not enabled" << std::endl;
+#endif
         // Use Floyd Algorithm
         std::vector<i64> dist(
             num_nodes * num_nodes, std::numeric_limits<i64>::max());
@@ -77,7 +85,7 @@ public:
                 dist[arrIdx(i, e.to)] = std::min(dist[arrIdx(i, e.to)], (i64)e.weight);
         }
         for (i32 k = 0; k < num_nodes; k++)
-#pragma omp parallel for schedule(dynamic) num_threads(omp_get_max_threads())
+#pragma omp parallel for schedule(dynamic)
             for (i32 i = 0; i < num_nodes; i++)
                 for (i32 j = 0; j < num_nodes; j++)
                     if (dist[arrIdx(i, k)] < std::numeric_limits<i64>::max() &&
