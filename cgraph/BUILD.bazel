@@ -30,8 +30,6 @@ py_library(
 py_test(
     name = "test_py_graph",
     srcs = ["test_graph.py"],
+    data = ["graph_lib.so"],
     main = "test_graph.py",
-    deps = [
-        ":graph_lib_so",
-    ],
 )

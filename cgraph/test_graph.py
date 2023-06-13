@@ -2,7 +2,8 @@ import random
 import unittest
 
 import numpy as np
-from graph_lib import Graph as C_Graph
+
+from cgraph.graph_lib import Graph as C_Graph
 
 
 class TestGraph(unittest.TestCase):
