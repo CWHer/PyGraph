@@ -24,7 +24,7 @@ class TestGraph(unittest.TestCase):
 
         dist_all = g.getAllShortestPath()
         self.assertEqual(dist_all.shape, (num_nodes, num_nodes))
-        self.assertEqual(dist_all.dtype, np.int64)
+        self.assertEqual(dist_all.dtype, np.float64)
 
         num_tests = 50
         for _ in range(num_tests):

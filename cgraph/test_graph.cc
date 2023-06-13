@@ -62,13 +62,13 @@ TEST(Graph, Ops)
         auto src = dist(rng);
         auto dist_src = g.getShortestPathCond(src);
         for (int k = 0; k < num_nodes; ++k)
-            EXPECT_EQ(dist_all[src * num_nodes + k], dist_src[k]);
+            EXPECT_NEAR(dist_all[src * num_nodes + k], dist_src[k], 1e-5);
     }
     for (int i = 0; i < num_tests; ++i)
     {
         auto src = dist(rng);
         auto dist_src = g.getShortestPath(src);
         for (int k = 0; k < num_nodes; ++k)
-            EXPECT_EQ(dist_all[src * num_nodes + k], dist_src[k]);
+            EXPECT_NEAR(dist_all[src * num_nodes + k], dist_src[k], 1e-5);
     }
 }
