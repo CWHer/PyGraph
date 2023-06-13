@@ -1,0 +1,13 @@
+py_binary(
+    name = "setup",
+    srcs = [
+        "setup.py",
+    ],
+    data = [
+        "LICENSE",
+        "README.md",
+        "//cgraph:graph_lib_so",
+    ],
+    main = "setup.py",
+    python_version = "PY3",
+)
